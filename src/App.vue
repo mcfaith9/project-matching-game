@@ -9,7 +9,8 @@ import ProgressTimer from './components/ProgressTimer.vue'
 import AppFooter from './components/AppFooter'
 import AppHero from './components/AppHero'
 import GameBoard from './components/GameBoard'
-import NewGameButton from './components/NewGameButton'
+import ButtonNewGame from './components/ButtonNewGame'
+import ButtonLeaderboard from './components/ButtonLeaderboard'
 
 export default {
   name: 'App',
@@ -17,8 +18,9 @@ export default {
     AppFooter,
     AppHero,
     GameBoard,
-    NewGameButton,
-    ProgressTimer
+    ButtonNewGame,
+    ProgressTimer,
+    ButtonLeaderboard
   },
   setup() {
     const { cardList } = createDeck(aguyiknowpeople)
@@ -103,6 +105,9 @@ export default {
       startNewGame,
       newPlayer
     }
+  },
+  mounted() {
+    this.startNewGame()
   }
 }
 </script>
@@ -111,7 +116,10 @@ export default {
   <AppHero />  
   <ProgressTimer />
   <GameBoard :cardList="cardList" :status="status" @flip-card="flipCard" />
-  <NewGameButton :newPlayer="newPlayer" @start-new-game="startNewGame" />
+  <div class="button-wrapper">
+    <ButtonNewGame :newPlayer="newPlayer" @start-new-game="startNewGame" />
+    <ButtonLeaderboard />
+  </div>
   <AppFooter />
 </template>
 
@@ -167,6 +175,13 @@ a:hover {
   justify-content: center;
 }
 
+.button-wrapper {
+  display: inline-flex
+}
+.button-wrapper button {  
+  margin: 0 6px 30px;
+}
+
 @media screen and (min-width: 500px) {
   .game-board {
     grid-template-columns: repeat(4, 90px);
@@ -197,6 +212,10 @@ a:hover {
 }
 .title {
   width: 10%;
+}
+
+.img-leaderboard, .img-restart-button{
+  width: 3vh;
 }
 
 p {

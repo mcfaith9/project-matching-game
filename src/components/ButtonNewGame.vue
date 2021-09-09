@@ -25,29 +25,23 @@ export default {
         :class="$style['icon-play']"
         src="/images/play-button.svg"
         alt="Play Icon"
-      /><img
-        :class="$style['icon-aguyiknow']"
-        src="/images/AGIKchar_00043.png"
-        alt="Cute aguyiknow"
       />
     </div>
     Start Game
   </button>
   <button v-else @click="startNewGame" :class="$style.button">
-    <img src="/images/restart.svg" alt="Restart Icon" />Restart Game
+    <img class="img-restart-button" src="/images/restart.svg" alt="Restart Icon" />Restart Game
   </button>
 </template>
 
 <style module>
-
 .button {
   background-color: #5da832;
-  color: black;
+  color: white;
   padding: 8px 16px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 30px;
   font-weight: bold;
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
@@ -56,19 +50,12 @@ export default {
   border-radius: 10px;
   transition: 0.2s all ease-in;
   border: 2px solid #5b412a;
+  min-width: 160px;
 }
 
 .button:hover {
-  border: 2px solid #5b412a;
-  background-color: transparent;
-}
-
-.button:hover .icon-aguyiknow {
-  opacity: 1;
-}
-
-.button:hover .icon-play {
-  opacity: 0;
+  color: white;
+  background-color: #795548;
 }
 
 .button img {

@@ -1,10 +1,23 @@
-<template>
-  <h1 class="sr-only">IPEEKIKNOW</h1>
+<template>  
   <img
     srcset="/images/agikHigh.gif 2x, /images/agikHigh.gif 1x"
     src="/images/agikHigh.gif"
     alt="aguyiknow-gif"
     class="title hero-img"
   />
-  <p>Welcome to IPEEKIKNOW, match making cards!</p>
+  <h3>Welcome to <span>IPEEKIKNOW</span> match making cards before time run's out!</h3>
 </template>
+
+<style scoped>
+  h3 {
+    margin: 0.3rem 0;
+    color: #000;
+  }
+  span {
+    font-weight: bolder;
+    color: #5d4037;
+    padding: 0 10px;
+    border-radius: 10px;
+    background-color: #5da832;
+  }
+</style>

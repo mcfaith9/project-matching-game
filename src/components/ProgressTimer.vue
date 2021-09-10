@@ -11,30 +11,12 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 export default {
-	setup () {
-		let timer = ref(100)
-		timer.value = 100
-
-		const countDownTimer = () => {
-			console.log("timer")
-			let interval = setInterval(() => {
-				if(timer.value > 0) {
-					timer.value --
-				} else {
-					clearInterval(interval)
-				}
-			}, 1000);
+	props: {
+		timer: {
+			type: Number,
+			required: true,
 		}
-
-		return {
-			timer,
-			countDownTimer
-		}
-	},
-	mounted () {
-		this.countDownTimer();
 	}
 }
 </script>

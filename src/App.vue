@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { launchConfetti } from './utilities/confetti'
 import createDeck from './features/createDeck'
 import createGame from './features/createGame'
+import progressTimer from './features/progressTimer'
 import aguyiknowpeople from './data/aguyiknowpeople.json'
 
 import ProgressTimer from './components/ProgressTimer.vue'
@@ -23,6 +24,7 @@ export default {
     ButtonLeaderboard
   },
   setup() {
+    const {timer, countDownTimer} = progressTimer()
     const { cardList } = createDeck(aguyiknowpeople)
     const {
       newPlayer,
@@ -33,9 +35,12 @@ export default {
     } = createGame(cardList)
     const userSelection = ref([])
     const userCanFlipCard = ref(true)
+    let flips = ref(0)
+    const counting = timer
 
-    const startNewGame = () => {
+    const startNewGame = () => {      
       if (newPlayer) {
+        console.log("Starting Timer:" +countDownTimer(), counting)
         startGame()
       } else {
         restartGame()
@@ -72,11 +77,13 @@ export default {
     watch(
       userSelection,
       currentValue => {
-        if (currentValue.length === 2) {
+        if (currentValue.length === 2) {            
           const cardOne = currentValue[0]
           const cardTwo = currentValue[1]
+
           // Disable ability to flip cards
           userCanFlipCard.value = false
+          flips.value ++
 
           if (cardOne.faceValue === cardTwo.faceValue) {
             cardList.value[cardOne.position].matched = true
@@ -103,19 +110,18 @@ export default {
       userSelection,
       status,
       startNewGame,
-      newPlayer
+      newPlayer,
+      flips,
+      counting
     }
-  },
-  mounted() {
-    this.startNewGame()
   }
 }
 </script>
 
 <template>
   <AppHero />  
-  <ProgressTimer />
-  <GameBoard :cardList="cardList" :status="status" @flip-card="flipCard" />
+  <ProgressTimer :timer="counting" />
+  <GameBoard :cardList="cardList" :status="status" :flips="flips" @flip-card="flipCard" />
   <div class="button-wrapper">
     <ButtonNewGame :newPlayer="newPlayer" @start-new-game="startNewGame" />
     <ButtonLeaderboard />

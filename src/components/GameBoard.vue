@@ -13,6 +13,10 @@ export default {
     status: {
       type: String,
       required: true
+    },
+    flips: {
+      type: Number,
+      required: true
     }
   },
   setup(props, ctx) {
@@ -39,11 +43,22 @@ export default {
       @select-card="selectCard"
     />
   </transition-group>
-  <h2 class="status">{{ status }}</h2>
+  <div class="status-wrapper">
+    <h2 class="status">Matches found: {{ status }}</h2> 
+    <h2 class="status">Number of Flips: <span>{{ flips }}</span></h2>
+  </div>
 </template>
 
 <style scoped>
-  h2 {
+h2 {
   color:  #000;
+}
+.status-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.status-wrapper h2 {
+  margin-right: 20px;
 }
 </style>

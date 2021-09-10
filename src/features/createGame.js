@@ -27,8 +27,12 @@ export default function createGame(deck) {
     if (matchesFound.value === 8) {
       return 'Player wins!'
     } else {
-      return `Matches found: ${matchesFound.value}`
+      return matchesFound.value
     }
+  })
+
+  const flips = computed(() => {
+    return flips
   })
 
   const matchesFound = computed(() => {
@@ -42,6 +46,7 @@ export default function createGame(deck) {
     newPlayer,
     restartGame,
     startGame,
-    status
+    status,
+    flips
   }
 }

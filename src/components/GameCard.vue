@@ -26,14 +26,16 @@ export default {
         return 'is-flipped'
       } else {
         return null;
-      }      
+      }       
     })
 
     const selectCard = () => {
-      context.emit('select-card', {
-        position: props.position,
-        faceValue: props.value
-      })
+      if(props.visible) return
+        
+        context.emit('select-card', {
+          position: props.position,
+          faceValue: props.value
+        })
     }
 
     return {
@@ -64,6 +66,7 @@ export default {
   position: relative;
   transition: 0.5s transform ease-in;
   transform-style: preserve-3d;
+  cursor: pointer;
 }
 
 .card.is-flipped {

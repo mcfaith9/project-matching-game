@@ -21,6 +21,7 @@
   border: 2px solid #5b412a;
   min-width: 160px;
   height: 50px;
+  cursor: pointer;
 }
 
 .button:hover {

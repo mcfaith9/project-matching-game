@@ -34,10 +34,11 @@ export default {
   border-radius: 10px;
   transition: 0.2s all ease-in;
   border: 2px solid #5b412a;
-  padding-left: 50px;
+  padding-left: 55px;
   min-width: 160px;
   height: 50px;
   margin: 0 6px 0 6px;
+  cursor: pointer;
   appearance: none;
   background: url(/images/arrow-down.svg) 96% / 15% no-repeat #5da832;
   background-position: 15% 50%;

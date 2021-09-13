@@ -1,7 +1,8 @@
 <script>
-import Card from './Card'
+import Card from './GameCard'
 
 export default {
+  emits: ['flipCard','flip-card'],
   components: {
     Card
   },
@@ -11,7 +12,7 @@ export default {
       required: true
     },
     status: {
-      type: String,
+      type: Number,
       required: true
     },
     flips: {

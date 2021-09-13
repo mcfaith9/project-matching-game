@@ -3,13 +3,18 @@ import { ref, watch } from 'vue'
 import { launchConfetti } from './utilities/confetti'
 import createDeck from './features/createDeck'
 import createGame from './features/createGame'
+import scoring from './features/createScore'
+import r4nktApi from './features/r4nktApi'
 import progressTimer from './features/progressTimer'
+
+
 import aguyiknowpeople from './data/aguyiknowpeople.json'
 
 import AppProgressTimer from './components/AppProgressTimer'
 import AppFooter from './components/AppFooter'
 import AppHero from './components/AppHero'
 import AppSelectBox from './components/AppSelectBox'
+import AppSettings from './components/AppSettings'
 import GameBoard from './components/GameBoard'
 import ButtonNewGame from './components/ButtonNewGame'
 import ButtonLeaderboard from './components/ButtonLeaderboard'
@@ -23,10 +28,13 @@ export default {
     ButtonNewGame,
     AppProgressTimer,
     ButtonLeaderboard,
-    AppSelectBox
+    AppSelectBox,
+    AppSettings
   },
   setup() {
-    const {timer, countDownTimer} = progressTimer()
+    const { fetchData } = r4nktApi()
+    const { timer, countDownTimer, stopTimer } = progressTimer()
+    const { score } = scoring()
     const { cardList } = createDeck(aguyiknowpeople)
     const {
       newPlayer,
@@ -37,11 +45,11 @@ export default {
     } = createGame(cardList)
     const userSelection = ref([])
     const userCanFlipCard = ref(true)
-    const almostTimeout = ref(true)
+    const almostTimeout = ref(true)    
     const flips = ref(0)
-    const counting = timer
 
-    const startNewGame = () => {      
+    const startNewGame = () => {   
+      fetchData()   
       if (newPlayer) {
         countDownTimer()
         startGame()
@@ -74,6 +82,8 @@ export default {
     watch(matchesFound, currentValue => {
       if (currentValue === 8) {
         launchConfetti()
+        stopTimer()
+        score(timer.value, flips.value, status)
       }
     })
 
@@ -121,8 +131,9 @@ export default {
       startNewGame,
       newPlayer,
       flips,
-      counting,
-      almostTimeout
+      timer,
+      almostTimeout,
+      fetchData,
     }
   }
 }
@@ -130,7 +141,7 @@ export default {
 
 <template>
   <AppHero />    
-  <AppProgressTimer :timer="counting" :almostTimeout="almostTimeout"/>
+  <AppProgressTimer :timer="timer" :almostTimeout="almostTimeout"/>
   <GameBoard :cardList="cardList" :status="status" :flips="flips" @flip-card="flipCard" />
   <div class="button-wrapper">
     <AppSelectBox /> 
@@ -138,9 +149,17 @@ export default {
     <ButtonLeaderboard />    
   </div>
   <AppFooter />
+  <AppSettings />
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+*, *::before, *::after {
+  padding: 0;  
+  font-family: 'Titillium Web', sans-serif;
+}
+
 html,
 body {
   margin: 0;
@@ -174,7 +193,7 @@ a:hover {
   text-align: center;
   color: #2c3e50;
   color: #fff;
-  padding: 30px 0px 0px;
+  padding: 30px 0 0;
 }
 
 .status {
@@ -235,7 +254,47 @@ a:hover {
   width: 3vh;
 }
 
-p {
-  padding: 0;
+.swal2-title {
+  margin: 0;
+  color: #f3f3f3;
+  letter-spacing: 2px;
+  font-size: 4rem;  
+  font-family: 'Bangers', sans-serif;
+  padding: 5px;  
+  background: url('/images/nether-brick-minecraft.png');
+  background-size: cover; 
+  -webkit-border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
+}
+.swal2-popup {
+  border-radius: 10px;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: #5da832;
+  color: white;
+  padding: 8px 16px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 10px;
+  transition: 0.2s all ease-in;
+  border: 2px solid #5b412a;
+  min-width: 160px;
+  height: 50px;
+}
+
+.swal2-styled.swal2-confirm:hover {
+  color: white;
+  background-color: #795548;
+}
+
+.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
+  background: rgba(0,0,0,.7);
 }
 </style>

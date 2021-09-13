@@ -93,8 +93,9 @@ export default {
 }
 
 .card-image {
-  max-width: 100%;
+  max-width: 96%;
   border-radius: 10px;
+  border: 4px solid #5e3f2b;
 }
 
 .icon-checkmark {

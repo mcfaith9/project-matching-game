@@ -6,9 +6,10 @@ import createGame from './features/createGame'
 import progressTimer from './features/progressTimer'
 import aguyiknowpeople from './data/aguyiknowpeople.json'
 
-import ProgressTimer from './components/ProgressTimer.vue'
+import AppProgressTimer from './components/AppProgressTimer'
 import AppFooter from './components/AppFooter'
 import AppHero from './components/AppHero'
+import AppSelectBox from './components/AppSelectBox'
 import GameBoard from './components/GameBoard'
 import ButtonNewGame from './components/ButtonNewGame'
 import ButtonLeaderboard from './components/ButtonLeaderboard'
@@ -20,8 +21,9 @@ export default {
     AppHero,
     GameBoard,
     ButtonNewGame,
-    ProgressTimer,
-    ButtonLeaderboard
+    AppProgressTimer,
+    ButtonLeaderboard,
+    AppSelectBox
   },
   setup() {
     const {timer, countDownTimer} = progressTimer()
@@ -35,12 +37,13 @@ export default {
     } = createGame(cardList)
     const userSelection = ref([])
     const userCanFlipCard = ref(true)
-    let flips = ref(0)
+    const almostTimeout = ref(true)
+    const flips = ref(0)
     const counting = timer
 
     const startNewGame = () => {      
       if (newPlayer) {
-        console.log("Starting Timer:" +countDownTimer(), counting)
+        countDownTimer()
         startGame()
       } else {
         restartGame()
@@ -71,6 +74,12 @@ export default {
     watch(matchesFound, currentValue => {
       if (currentValue === 8) {
         launchConfetti()
+      }
+    })
+
+    watch(timer, currentValue => {
+      if(currentValue === 35) {
+        almostTimeout.value = false
       }
     })
 
@@ -112,19 +121,21 @@ export default {
       startNewGame,
       newPlayer,
       flips,
-      counting
+      counting,
+      almostTimeout
     }
   }
 }
 </script>
 
 <template>
-  <AppHero />  
-  <ProgressTimer :timer="counting" />
+  <AppHero />    
+  <AppProgressTimer :timer="counting" :almostTimeout="almostTimeout"/>
   <GameBoard :cardList="cardList" :status="status" :flips="flips" @flip-card="flipCard" />
   <div class="button-wrapper">
+    <AppSelectBox /> 
     <ButtonNewGame :newPlayer="newPlayer" @start-new-game="startNewGame" />
-    <ButtonLeaderboard />
+    <ButtonLeaderboard />    
   </div>
   <AppFooter />
 </template>

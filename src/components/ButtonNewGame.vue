@@ -44,13 +44,13 @@ export default {
   justify-content: center;
   font-weight: bold;
   font-family: 'Titillium Web', sans-serif;
-  font-weight: bold;
   font-size: 1rem;
   border: 0;
   border-radius: 10px;
   transition: 0.2s all ease-in;
   border: 2px solid #5b412a;
   min-width: 160px;
+  height: 50px;
 }
 
 .button:hover {

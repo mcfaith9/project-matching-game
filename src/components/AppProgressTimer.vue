@@ -1,12 +1,13 @@
 <template>
-	<div class="progress-wrapper">		
+	<div class="progress-wrapper">			
 		<div class="progress">
 			<h1 class="progress-text"></h1>
 			<div class="progress-bar">
-				<div data-progress="0" :style="`width:${timer}%`"></div>
+				<div v-if="almostTimeout" data-progress="0" :style="`width:${timer}%`"></div>
+				<div v-else class="progress-red" data-progress="0" :style="`width:${timer}%`"></div>
 			</div>
 		</div>		
-		<h2>{{ timer }}'s</h2> 		
+		<h2>{{ timer }} sec</h2> 		
 	</div>
 </template>
 
@@ -16,6 +17,10 @@ export default {
 		timer: {
 			type: Number,
 			required: true,
+		},
+		almostTimeout: {
+			type: Boolean,
+			default: true,
 		}
 	}
 }
@@ -28,12 +33,12 @@ h2 {
 
 .progress-wrapper {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .progress {
-	max-width: 500px;
+	max-width: 400px;
 	width: 100%;	
 }
 .progress-text {
@@ -44,19 +49,23 @@ h2 {
 	opacity: 1;
 }
 .progress-bar {
-	background-color: #5b4129;
+	background-color: #5b412a;
 	border-radius: 10px;
 	height: 20px;
 	position: relative;
 	overflow: hidden;
-	margin: 20px;
+	margin: 20px 20px 20px 0;
+	border: 2px solid #5b412a;
 }
 .progress [data-progress] {
-	background-color: #91b454;
+	background-color: #5da832;
 	border-radius: 10px;
 	height: 100%;
 	width: 0;
 	line-height: 30px;
 	position: absolute;
+}
+.progress-red {
+	background-color: #ff3333 !important;
 }
 </style>

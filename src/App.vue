@@ -275,7 +275,7 @@ a:hover {
 }
 
 .swal-game-win, .swal-ask-player-info {
-  background: url(/images/dirt-minectaft.jpg);
+  background: url(/images/dirt-minectaft.jpg) !important;
 }
 
 .swal-game-win > .swal2-html-container > ul > li{  
@@ -324,20 +324,20 @@ a:hover {
 }
 
 .swal2-styled.swal2-confirm:hover {
-  color: #f3f3f3;
+  color: #f3f3f3 !important;
   background-color: #795548 !important;
 }
 
 .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
 }
 
 .swal2-html-container {
   color: #f3f3f3 !important;
-  font-size: 40px;
+  font-size: 40px !important;
   font-family: 'Bangers', sans-serif !important;
 }
 </style>

@@ -9,6 +9,15 @@
           alt="Vue.js logo"
         />
         Vue.js 3
+        <span>and </span>
+        <a :class="$style['powered-link']" href="https://r4nkt.com/" title="">
+          <img 
+            :class="$style['powered-logo']"
+            src="/images/r4nkt-fav-180x180.png"
+            alt="r4nkt logo"
+          />
+          r4nkt.com
+        </a>
       </a> 
     </p>
   </footer>

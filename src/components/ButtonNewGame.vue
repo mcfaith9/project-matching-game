@@ -45,7 +45,6 @@ export default {
   font-weight: bold;
   font-family: 'Titillium Web', sans-serif;
   font-size: 1rem;
-  border: 0;
   border-radius: 10px;
   transition: 0.2s all ease-in;
   border: 2px solid #5b412a;

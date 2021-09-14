@@ -3,10 +3,10 @@ import { ref, watch } from 'vue'
 import { launchConfetti } from './utilities/confetti'
 import createDeck from './features/createDeck'
 import createGame from './features/createGame'
-import scoring from './features/createScore'
+import createScore from './features/createScore'
+import progressTimer from './features/createProgressTimer'
+import createPlayerData from './features/createPlayerData'
 import r4nktApi from './features/r4nktApi'
-import progressTimer from './features/progressTimer'
-
 
 import aguyiknowpeople from './data/aguyiknowpeople.json'
 
@@ -32,9 +32,10 @@ export default {
     AppSettings
   },
   setup() {
+    const { askPlayerInfo } = createPlayerData()
     const { fetchData } = r4nktApi()
     const { timer, countDownTimer, stopTimer } = progressTimer()
-    const { score } = scoring()
+    const { score } = createScore()
     const { cardList } = createDeck(aguyiknowpeople)
     const {
       newPlayer,
@@ -47,11 +48,13 @@ export default {
     const userCanFlipCard = ref(true)
     const almostTimeout = ref(true)    
     const flips = ref(0)
+    const readyState = ref(false)
 
-    const startNewGame = () => {   
-      fetchData()   
-      if (newPlayer) {
-        countDownTimer()
+    const startNewGame = () => {  
+      countDownTimer(newPlayer.value) 
+      readyState.value = true
+      // fetchData()  
+      if (newPlayer) {         
         startGame()
       } else {
         restartGame()
@@ -63,10 +66,8 @@ export default {
         cardList.value[payload.position].visible = true
 
         if (userSelection.value[0]) {
-          if (
-            userSelection.value[0].position === payload.position &&
-            userSelection.value[0].faceValue === payload.faceValue
-          ) {
+          if (userSelection.value[0].position === payload.position &&
+            userSelection.value[0].faceValue === payload.faceValue) {
             return
           } else {
             userSelection.value[1] = payload
@@ -129,12 +130,17 @@ export default {
       userSelection,
       status,
       startNewGame,
+      readyState,
       newPlayer,
       flips,
       timer,
       almostTimeout,
       fetchData,
+      askPlayerInfo
     }
+  },
+  mounted() {
+    this.askPlayerInfo()
   }
 }
 </script>
@@ -142,7 +148,7 @@ export default {
 <template>
   <AppHero />    
   <AppProgressTimer :timer="timer" :almostTimeout="almostTimeout"/>
-  <GameBoard :cardList="cardList" :status="status" :flips="flips" @flip-card="flipCard" />
+  <GameBoard :cardList="cardList" :status="status" :flips="flips" :readyState="readyState" @flip-card="flipCard" />
   <div class="button-wrapper">
     <AppSelectBox /> 
     <ButtonNewGame :newPlayer="newPlayer" @start-new-game="startNewGame" />
@@ -187,11 +193,9 @@ a:hover {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   color: #fff;
   padding: 30px 0 0;
 }
@@ -255,46 +259,85 @@ a:hover {
 }
 
 .swal2-title {
-  margin: 0;
-  color: #f3f3f3;
-  letter-spacing: 2px;
-  font-size: 4rem;  
-  font-family: 'Bangers', sans-serif;
-  padding: 5px;  
-  background: url('/images/nether-brick-minecraft.png');
-  background-size: cover; 
-  -webkit-border-radius: 10px 10px 0 0;
-  -moz-border-radius: 10px 10px 0 0;
-  border-radius: 10px 10px 0 0;
+  margin: 0 !important;
+  color: #f3f3f3 !important;
+  letter-spacing: 2px !important;
+  font-size: 4rem !important;  
+  font-family: 'Bangers', sans-serif !important;
+  background-size: cover !important; 
+  -webkit-border-radius: 10px 10px 0 0 !important;
+  -moz-border-radius: 10px 10px 0 0 !important;
+  border-radius: 10px 10px 0 0 !important;
 }
+
+.swal-game-win > .swal2-title {
+  font-size: 4rem !important;
+}
+
+.swal-game-win, .swal-ask-player-info {
+  background: url(/images/dirt-minectaft.jpg);
+}
+
+.swal-game-win > .swal2-html-container > ul > li{  
+  font-family: 'Bangers', sans-serif !important;
+}
+
+.swal-ask-player-info > .swal2-title {
+  letter-spacing: 3px !important;
+  font-size: 2.6rem !important;
+  color: #f3f3f3 !important;
+}
+
+.swal-ask-player-info > .swal2-html-container {
+  font-size: 20px !important;
+  color: #f3f3f3 !important;
+  padding: 10px;
+}
+
+.swal-ask-player-info > .swal2-actions > button {
+  border: 2px solid #5b412a !important;
+}
+
+.swal-warning {
+  background: none !important;
+}
+
 .swal2-popup {
-  border-radius: 10px;
+  border-radius: 15px !important;
 }
 
 .swal2-styled.swal2-confirm {
-  background-color: #5da832;
-  color: white;
-  padding: 8px 16px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 1rem;
-  border: 0;
-  border-radius: 10px;
-  transition: 0.2s all ease-in;
-  border: 2px solid #5b412a;
-  min-width: 160px;
-  height: 50px;
+  background-color: #5da832 !important;
+  color: #f3f3f3 !important;
+  padding: 8px 16px 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+  font-size: 1rem !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  transition: 0.2s all ease-in !important;
+  border: 2px solid #5b412a !important;
+  min-width: 160px !important;
+  height: 50px !important;
 }
 
 .swal2-styled.swal2-confirm:hover {
-  color: white;
-  background-color: #795548;
+  color: #f3f3f3;
+  background-color: #795548 !important;
 }
 
 .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
-  background: rgba(0,0,0,.7);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.swal2-html-container {
+  color: #f3f3f3 !important;
+  font-size: 40px;
+  font-family: 'Bangers', sans-serif !important;
 }
 </style>

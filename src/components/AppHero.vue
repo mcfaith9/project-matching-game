@@ -1,7 +1,7 @@
 <template>  
   <img
-    srcset="/images/agikHigh.gif 2x, /images/agikHigh.gif 1x"
-    src="/images/agikHigh.gif"
+    srcset="/images/gif/agikHigh.gif 2x, /images/gif/agikHigh.gif 1x"
+    src="/images/gif/agikHigh.gif"
     alt="aguyiknow-gif"
     class="title hero-img"
   />

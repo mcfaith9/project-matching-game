@@ -17,8 +17,8 @@ const fetchData = async () => {
   .catch(error => console.log(error.response))
 }
 
-const postData = () => {
-  console.log('Post Data to api')
+const postData = (playerName, playerEmail, timedRemaining, matchesFound, numberOfFlips) => {
+  console.log('Post Data to api =>', playerName, playerEmail, timedRemaining, matchesFound, numberOfFlips)
 }
 
 export default function r4nktApi() {

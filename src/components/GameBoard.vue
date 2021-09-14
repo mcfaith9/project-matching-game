@@ -1,4 +1,5 @@
 <script>
+import Swal from 'sweetalert2'
 import Card from './GameCard'
 
 export default {
@@ -18,11 +19,25 @@ export default {
     flips: {
       type: Number,
       required: true
+    },
+    readyState: {
+      type: Boolean,
+      required: false
     }
   },
   setup(props, ctx) {
-    const selectCard = payload => {
-      ctx.emit('flip-card', payload)
+    const selectCard = payload => {  
+      if(!props.readyState) {
+        Swal.fire({
+          title: 'Please Start Game',
+          customClass: 'swal-warning',
+          focusConfirm: false,
+        })
+      } 
+
+      if(props.readyState) {
+        ctx.emit('flip-card', payload)
+      }  
     }
 
     return {

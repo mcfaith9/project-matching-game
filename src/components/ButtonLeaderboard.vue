@@ -1,8 +1,18 @@
 <template>
-  <button :class="$style.button">
+  <button :class="$style.button" @click="showLeaderboard">
     <img src="/images/star-medal.svg" alt="Leaderboard Icon" class="img-leaderboard"/>Leaderboard
   </button>
 </template>
+
+<script>
+  export default {
+    methods: {
+      showLeaderboard() {
+        alert('To be implemented')
+      }
+    }
+  }
+</script>
 
 <style module>
 .button {
@@ -15,7 +25,6 @@
   font-weight: bold;
   font-family: 'Titillium Web', sans-serif;
   font-size: 1rem;
-  border: 0;
   border-radius: 10px;
   transition: 0.2s all ease-in;
   border: 2px solid #5b412a;

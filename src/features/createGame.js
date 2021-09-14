@@ -6,7 +6,6 @@ export default function createGame(deck) {
 
   const startGame = () => {
     newPlayer.value = false
-
     restartGame()
   }
 

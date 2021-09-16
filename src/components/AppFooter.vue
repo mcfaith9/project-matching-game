@@ -63,5 +63,6 @@
 
   .powered-logo {
     width: 18px;
+    background: #f3f3f3;
   }
 </style>

@@ -64,17 +64,3 @@ export default {
     <h2 class="status">Number of Flips: <span>{{ flips }}</span></h2>
   </div>
 </template>
-
-<style scoped>
-h2 {
-  color:  #000;
-}
-.status-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.status-wrapper h2 {
-  margin-right: 20px;
-}
-</style>

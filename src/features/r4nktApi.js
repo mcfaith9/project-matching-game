@@ -1,4 +1,5 @@
 import axios from 'axios'
+require('dotenv').config({ path: '.env' })
 
 const headers = {
   "Authorization": process.env.VUE_APP_R4NKT_API_TOKEN,

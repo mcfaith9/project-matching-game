@@ -40,6 +40,7 @@ import axios from 'axios'
 import r4nktApi from '/src/features/r4nktApi'
 import AppModal from '@/components/AppModal'
 import AppPagination from '@/components/AppPagination'
+require('dotenv').config({ path: '.env' })
 
 export default {
   components: {

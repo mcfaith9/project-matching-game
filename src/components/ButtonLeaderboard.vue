@@ -3,7 +3,7 @@
   <AppModal @close="toggleModal" :modalActive="modalActive">
     <h3 class="modal-title">Player Ranking</h3>
     <div class="modal-content">
-      <table>
+      <table :class="[tbLoadingStatus ? 'loading' : ' ']">
         <thead>
           <tr>
             <th style="width: 20%;">Rank</th>
@@ -53,27 +53,25 @@ export default {
     const rankinglist = ref([])
     const paginationLinks = ref([])
     const nextData = []
+    const tbLoadingStatus = ref(false)
+
     const headers = {
       "Authorization": process.env.VUE_APP_R4NKT_API_TOKEN,
       "Accept": "application/json"
     } 
 
     const fetchAnotherData = async (link) => {
-      const unpackerRankList = []
-      const unpackerPaginationLinks = []
+      tbLoadingStatus.value = true
 
       axios.get(link, { headers })
-      .then((response) => nextData.value = response.data)
+      .then((response) => {
+        nextData.value = response.data
+
+        rankinglist.value = nextData.value.data
+        paginationLinks.value =  nextData.value.meta.links
+        tbLoadingStatus.value = false
+      })
       .catch(error => console.log(error.response))
-      
-      if(nextData.value == undefined) return
-        unpackerRankList.value = nextData.value.data
-        unpackerPaginationLinks.value = nextData.value.meta.links
-
-        rankinglist.value = unpackerRankList.value
-        paginationLinks.value =  unpackerPaginationLinks.value
-
-        console.log("unpack =>", unpackerRankList.value, unpackerPaginationLinks.value)
     }
 
     const toggleModal = () => {
@@ -89,7 +87,8 @@ export default {
       rankinglist,
       paginationLinks,
       fetchAnotherData,
-      nextData
+      nextData,
+      tbLoadingStatus
     }
   }
 }

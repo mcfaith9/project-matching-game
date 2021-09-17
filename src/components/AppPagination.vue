@@ -1,6 +1,8 @@
 <template>
-	<div v-for="link in links" :key="link.id" class="pagination"> 	
-		<a @click="paginate(link.url)" href="#" :class="[ link.active ? 'active' : ' ' ]">{{ link.label }}</a>		
+	<div class="pagination-wrapper">
+		<div v-for="link in links" :key="link.id" class="pagination"> 	
+			<a 	@click="paginate(link.url)" href="#" :class="[ link.active ? 'active' : ' ', link.url == null ? 'a-disable' : '' ]">{{ link.label }}</a>		
+		</div>
 	</div>
 </template>
 
@@ -57,5 +59,12 @@ export default {
 .pagination a:hover:not(.active) {
 	color: white;
 	background-color: #795548;
+}
+
+.a-disable {
+	pointer-events: none;
+  cursor: default;
+  color: #dddd !important;
+  background-color: #6c757d !important;
 }
 </style>

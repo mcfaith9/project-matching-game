@@ -15,8 +15,13 @@
           <tr>
             <td>{{ rank.rank + 1 }}</td>
             <td>
-              <div class="progress">
-                <div class="progress-bar">
+              <div class="progress">      
+                <div class="animal-wrapper">
+                  <span class="player-rand-image" :style="`width:${ (rank.score/5000) * 100 }%; left:${ (rank.score/5000) * 100 / 2 }px`">
+                    <fa :icon="faAnimalIcon[rank.rank]"></fa>
+                  </span>
+                </div>
+                <div class="progress-bar">                    
                   <div data-progress="0" :style="`width:${ (rank.score/5000) * 100 }%`"></div>
                 </div>
               </div>
@@ -40,7 +45,7 @@ import axios from 'axios'
 import r4nktApi from '@/features/r4nktApi'
 import AppModal from '@/components/AppModal'
 import AppPagination from '@/components/AppPagination'
-require('dotenv').config({ path: '.env' })
+import faAnimalIcon from '@/data/font-awesome-animal.json'
 
 export default {
   components: {
@@ -88,7 +93,8 @@ export default {
       paginationLinks,
       fetchAnotherData,
       nextData,
-      tbLoadingStatus
+      tbLoadingStatus,
+      faAnimalIcon
     }
   }
 }

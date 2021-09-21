@@ -2,7 +2,7 @@ import Swal from 'sweetalert2'
 import createScore from './createScore'
 
 
-const field = `<input type="text" id="playername" class="swal2-input" placeholder="Player Name"><input type="text" id="playeremailaddress" class="swal2-input" placeholder="Player Email Address">`
+const field = `<input type="text" id="playername" class="swal2-input" placeholder="Player Name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.keyCode == 8) || (event.keyCode == 32)"><input type="text" id="playeremailaddress" class="swal2-input" placeholder="Player Email Address">`
 const { playerInfo } = createScore()
 
 const askPlayerInfo = () => {

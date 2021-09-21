@@ -258,6 +258,28 @@ a:hover {
   background-color: #ff3333 !important;
 }
 
+.animal-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.player-rand-image {
+  position: relative;  
+  top: 0;  
+  float: left;
+  max-width: 100%;
+}
+
+.player-rand-image svg{
+  position: absolute;
+  font-size: 1.1em !important;
+  border-radius: 50px;
+  z-index: 1;
+  background: #5da832;
+  padding: 6px;
+  top: -5px;
+}
+
 .timer-text {
   font-family: 'Bangers', sans-serif !important;
   color: #5d4037 !important;
@@ -440,7 +462,7 @@ table.loading:after {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   background-image: url('/images/gif/tagble-loader.svg');
-  content: "Loading";
+  content: " ";
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100px 100px;

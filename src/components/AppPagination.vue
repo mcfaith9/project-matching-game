@@ -1,7 +1,7 @@
 <template>
 	<div class="pagination-wrapper">
-		<div v-for="link in links" :key="link.id" class="pagination"> 	
-			<a 	@click="paginate(link.url)" href="#" :class="[ link.active ? 'active' : ' ', link.url == null ? 'a-disable' : '' ]">
+		<div class="pagination"> 	
+			<a  href="#" v-for="link in links" :key="link.id" @click="paginate(link.url)" :class="[ link.active ? 'active' : ' ', link.url == null ? 'a-disable' : '' ]">
 				<span v-html="link.label"></span>
 			</a>		
 		</div>
@@ -31,18 +31,18 @@ export default {
 <style scoped>
 .pagination {
   display: inline-block;
-  margin-top: 5px;
-  border: 2px solid #5b412a;
+  margin-top: 5px;  
   border-radius: 10px;
+  border: 2px solid #5b412a;
 }
 
 .pagination a:first-child {  
-	content: "&laquo;"!important
+	border-radius: 8px 0 0 8px;
 }
 
-/*.pagination a:last-child {  
-	border-radius: 0 10px 10px 0;
-}*/
+.pagination a:last-child {  
+	border-radius: 0 8px 8px 0;
+}
 
 .pagination a {
   color: #f3f3f3;

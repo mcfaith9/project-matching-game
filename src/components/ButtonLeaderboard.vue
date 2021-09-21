@@ -11,16 +11,17 @@
             <th style="width: 20%;">Score</th>
           </tr>
         </thead>
-        <tbody v-for="rank in rankinglist" :key="rank.id">
+        <tbody v-for="(rank, rankKey) in rankinglist" :key="rankKey">
           <tr>
             <td>{{ rank.rank + 1 }}</td>
             <td>
-              <div class="progress">      
+              <div class="progress">    
                 <div class="animal-wrapper">
                   <span class="player-rand-image" :style="`width:${ (rank.score/5000) * 100 }%; left:${ (rank.score/5000) * 100 / 2 }px`">
-                    <fa :icon="faAnimalIcon[rank.rank]"></fa>
+                    <fa :icon="faAnimalIcon[rankKey]">${ rank.custom_player_id.slice(0, 6)</fa>
                   </span>
                 </div>
+                <p class="progress-text">ID: {{ rank.custom_player_id.slice(0, 12) }}</p>
                 <div class="progress-bar">                    
                   <div data-progress="0" :style="`width:${ (rank.score/5000) * 100 }%`"></div>
                 </div>

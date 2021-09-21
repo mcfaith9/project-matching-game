@@ -31,6 +31,18 @@ a:hover {
   text-decoration: underline;
 }
 
+.gold {
+  color: #FFD700 !important;
+}
+
+.silver {
+  color: #c0c0c0 !important;
+}
+
+.bronze {
+  color: #cd7f32 !important;
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -464,6 +476,7 @@ table.loading:after {
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   background-image: url('/images/gif/tagble-loader.svg');

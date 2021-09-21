@@ -13,7 +13,10 @@
         </thead>
         <tbody v-for="(rank, rankKey) in rankinglist" :key="rankKey">
           <tr>
-            <td>{{ rank.rank + 1 }}</td>
+            <td>
+              <template v-if="rank.rank < '3'"><fa icon="crown" :class="[rank.rank == '0' ? 'gold' : '', rank.rank == '1' ? 'silver' : '', rank.rank == '2' ? 'bronze' : '']"></fa></template>
+              <template v-else>{{ rank.rank + 1 }}</template>
+            </td>
             <td>
               <div class="progress">    
                 <div class="animal-wrapper">
